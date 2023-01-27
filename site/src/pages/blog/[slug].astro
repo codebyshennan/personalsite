@@ -1,0 +1,45 @@
+---
+// Component Imports
+import BlogLayout from "@layouts/BlogLayout.astro";
+import { getAllPosts } from "@utils/data";
+import { getSanityImageURL } from "@utils/sanity";
+export async function getStaticPaths() {
+  const posts = await getAllPosts();
+  // rss({
+  //   title: 'Example Blog',
+  //   description: 'An example blog on Astro',
+  //   customData: `<language>en-us</language>`,
+  //   items: allBlogPosts.map(item => ({
+  //     title: item.title,
+  //     description: item.description,
+  //     link: `/blog/${item.slug.current}`,
+  //     pubDate: item.publishedAt,
+  //   })),
+  // });
+  return posts.map((post) => ({
+    params: { slug: post.slug.current },
+    props: { post },
+  }));
+}
+const { post } = Astro.props;
+const seo = {
+  title: post.title,
+  description: post.description,
+  image: getSanityImageURL(post.mainImage).width(1200).url(),
+};
+---
+
+<!-- {
+  post.categoryData && (
+    <ul>
+      {post.categoryData.map((category) => (
+        <li>
+          <a href={`/blog/category/${category.slug.current}`}>
+            {category.title}
+          </a>
+        </li>
+      ))}
+    </ul>
+  )
+} -->
+<BlogLayout post={post} />

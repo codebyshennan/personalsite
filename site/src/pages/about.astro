@@ -1,8 +1,8 @@
 ---
-import Layout from "@layouts/Layout.astro";
+import { Picture } from "@astrojs/image/components";
 import Container from "@components/container.astro";
 import Sectionhead from "@components/sectionhead.astro";
-import { Picture } from "@astrojs/image/components";
+import Layout from "@layouts/Layout.astro";
 
 const TeamImg1 =
   "https://images.unsplash.com/photo-1580489944761-15a19d654956?&fit=crop&w=280";
@@ -42,7 +42,7 @@ const team = [
 ];
 ---
 
-<Layout title="About">
+<Layout seo={{ title: "About" }}>
   <Container>
     <Sectionhead>
       <Fragment slot="title">About</Fragment>

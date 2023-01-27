@@ -1,11 +1,15 @@
 ---
-import { SEO } from "astro-seo";
 import Footer from "@components/footer.astro";
 import Navbar from "@components/navbar/navbar.astro";
 import "@fontsource/inter/variable.css";
+import { SEO } from "astro-seo";
 
 export interface Props {
-  title: string;
+  seo: {
+    title?: string;
+    description?: string;
+    image?: string;
+  };
 }
 
 // const { src } = await getImage({
@@ -23,11 +27,7 @@ const resolvedImageWithDomain = new URL(
   Astro.site
 ).toString();
 
-const { title } = Astro.props;
-
-const makeTitle = title
-  ? title + " | " + "Astroship"
-  : "Astroship - Starter Template for Astro with Tailwind CSS";
+const { seo } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -40,11 +40,11 @@ const makeTitle = title
 
     <!-- <link rel="preload" as="image" href={src} alt="Hero" /> -->
     <SEO
-      title={makeTitle}
-      description="Astroship is a starter website template for Astro built with TailwindCSS."
+      title={seo.title}
+      description={seo.description}
       canonical={canonicalURL}
       twitter={{
-        creator: "@surjithctly",
+        creator: "@snwong",
         site: "@web3templates",
         card: "summary_large_image",
       }}
